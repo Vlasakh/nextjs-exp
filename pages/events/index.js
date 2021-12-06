@@ -1,27 +1,25 @@
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import styles from '../styles/Home.module.css';
+import { getAllEvents } from '../../data/dummy-data';
+import EventList from '../../src/components/Events/EventList';
+import EventsSearch from '../../src/components/Events/events-search';
 
 function AllEventsPage() {
-  const paths = [
-    { id: '/blog/2020/12', title: '/blog/2020/12' },
-    { id: '/clients/max/somePrg', title: '/clients/max/somePrg' },
-    { id: '/clients/', title: '/clients/' },
-  ];
+  const router = useRouter();
+  // const { events } = props;
+  const events = getAllEvents();
+
+  function findEventsHandler(year, month) {
+    const fullPath = `/events/${year}/${month}`;
+
+    router.push(fullPath);
+  }
 
   return (
-    <div className={styles.container}>
-      <h1>All Events</h1>
-      <ul>
-        {paths.map(({ id, title }) => (
-          <li>
-            <Link key={id} href={id}>
-              {title}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <EventsSearch onSearch={findEventsHandler} />
+      <EventList items={events} />
+    </>
   );
 }
 

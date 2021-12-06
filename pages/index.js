@@ -19,10 +19,8 @@ function HomePage() {
       <h1>Home page</h1>
       <ul>
         {PATHS.map(({ id, title }) => (
-          <li>
-            <Link key={id} href={id}>
-              {title}
-            </Link>
+          <li key={id}>
+            <Link href={id}>{title}</Link>
           </li>
         ))}
       </ul>
